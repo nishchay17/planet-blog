@@ -32,14 +32,6 @@ export const siteConfig = {
   ],
   creator: "nishchay17",
   icons: {
-    icon: "/favicon/favicon.ico",
+    icon: "/svg/logo.svg",
   },
-  features: [
-    {
-      title: "Streamlined Task Assignment",
-      icon: "checkBox",
-      description:
-        "Seamlessly create and assign tasks to team members. Empower collaboration and boost productivity by keeping everyone aligned on tasks and goals.",
-    },
-  ],
 };
