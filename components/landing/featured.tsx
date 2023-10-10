@@ -1,8 +1,7 @@
 import Link from "next/link";
 
 import BlogCard from "@/components/blog-card";
-import { allBlogs } from "@/.contentlayer/generated";
-import { Blog } from "@/.contentlayer/generated";
+import { allBlogs, Blog } from "contentlayer/generated";
 
 export default function Featured() {
   return (
