@@ -1,5 +1,6 @@
-import { allBlogs } from "contentlayer/generated";
 import Link from "next/link";
+
+import { allBlogs } from "contentlayer/generated";
 
 export default function AllTags() {
   const allTags = allBlogs.reduce((tagSet, currentBlog) => {

@@ -4,7 +4,6 @@ import { Poppins } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { Provider } from "./providers";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -48,13 +47,11 @@ export default function RootLayout({
         className={cn("antialiased", poppins.className)}
         suppressHydrationWarning
       >
-        <Provider>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            {children}
-            <Toaster />
-            <TailwindIndicator />
-          </ThemeProvider>
-        </Provider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          {children}
+          <Toaster />
+          <TailwindIndicator />
+        </ThemeProvider>
       </body>
     </html>
   );
