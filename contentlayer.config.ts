@@ -18,6 +18,10 @@ const Blog = defineDocumentType(() => ({
       type: "list",
       of: { type: "string" },
     },
+    createdAt: {
+      type: "date",
+      required: true,
+    },
     // image: {
     //   type: "string",
     // },
@@ -26,7 +30,7 @@ const Blog = defineDocumentType(() => ({
     url_path: {
       type: "string",
       resolve: (doc) =>
-        `blogs/${doc._raw.flattenedPath
+        `/blogs/${doc._raw.flattenedPath
           .replace(/pages\/?/, "")
           .replaceAll(" ", "")}`,
     },

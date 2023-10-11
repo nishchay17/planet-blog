@@ -1,4 +1,5 @@
 import { Hero, Featured, Tech } from "@/components/landing";
+import Recent from "@/components/landing/recent";
 import Nav from "@/components/nav";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <Featured />
+      <Recent />
       <Tech />
     </>
   );

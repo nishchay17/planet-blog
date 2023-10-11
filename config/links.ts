@@ -16,9 +16,21 @@ export const Links = {
     name: "dashboard",
   },
   landing: {
-    title: "Landing",
+    title: "Home",
     href: "/",
     icon: "",
     name: "landing",
+  },
+  allBlogs: {
+    title: "All Blogs",
+    href: "/blogs",
+    icon: "",
+    name: "allBlogs",
+  },
+  tags: {
+    title: "Tags",
+    href: "/tags",
+    icon: "",
+    name: "tags",
   },
 } as const;
