@@ -1,5 +1,6 @@
 export const siteConfig = {
   name: "Planet Blog",
+  siteUrl: "https://planet-blog.vercel.app",
   description:
     "Planet Blog, exploring javascript & everything deveploment made with Next js.",
   keyword: [

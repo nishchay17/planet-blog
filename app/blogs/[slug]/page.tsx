@@ -6,8 +6,48 @@ import { allBlogs, Blog } from "contentlayer/generated";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { Links } from "@/config/links";
+import { siteConfig } from "@/config/site";
 
 type Props = { params: { slug: string } };
+
+export async function generateStaticParams() {
+  return allBlogs.map((blog) => ({ slug: blog._raw.flattenedPath }));
+}
+
+export async function generateMetadata({ params }: Props) {
+  const blog = allBlogs.find(
+    (blog) => blog.url_path === `/blogs/${params.slug}`
+  );
+  if (!blog) {
+    return;
+  }
+
+  const publishedAt = new Date(blog.createdAt).toISOString();
+
+  // if (blog.image) {
+  //   imageList =
+  //     typeof blog.image.filePath === "string"
+  //       ? [siteMetadata.siteUrl + blog.image.filePath.replace("../public", "")]
+  //       : blog.image;
+  // }
+  // const ogImages = imageList.map((img) => {
+  //   return { url: img.includes("http") ? img : siteMetadata.siteUrl + img };
+  // });
+
+  return {
+    title: blog.title,
+    openGraph: {
+      title: `${siteConfig.name} | ${blog.title}`,
+      url: siteConfig.siteUrl + blog.url_path,
+      siteName: siteConfig.name,
+      locale: "en_US",
+      type: "article",
+      publishedTime: publishedAt,
+      // images: ogImages,
+      authors: siteConfig.authors,
+    },
+  };
+}
 
 function Blog({ params }: Props) {
   const blog = allBlogs.find(

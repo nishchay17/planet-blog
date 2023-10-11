@@ -1,12 +1,9 @@
 import Link from "next/link";
 
-import { allBlogs } from "contentlayer/generated";
+import { getAllTags } from "@/lib/utils";
 
 export default function AllTags() {
-  const allTags = allBlogs.reduce((tagSet, currentBlog) => {
-    (currentBlog?.tags ?? []).forEach((tag) => tagSet.add(tag));
-    return tagSet;
-  }, new Set<string>());
+  const allTags = getAllTags();
   return (
     <section>
       <h2 className="text-2xl md:text-3xl mb-6 font-medium">All Tags</h2>

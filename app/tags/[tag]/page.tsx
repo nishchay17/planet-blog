@@ -3,8 +3,21 @@ import Link from "next/link";
 
 import { allBlogs, Blog } from "contentlayer/generated";
 import BlogCard from "@/components/blog-card";
+import { getAllTags } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
 type Props = { params: { tag: string } };
+
+export async function generateStaticParams() {
+  const allTags = getAllTags();
+  return Array.from(allTags).map((tag) => ({ slug: tag }));
+}
+
+export async function generateMetadata({ params }: Props) {
+  return {
+    title: decodeURIComponent(params.tag),
+  };
+}
 
 function Tag({ params }: Props) {
   const tagName = decodeURIComponent(params.tag);
