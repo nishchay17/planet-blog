@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { Links } from "@/config/links";
 import { siteConfig } from "@/config/site";
+import Image from "next/image";
 
 type Props = { params: { slug: string } };
 
@@ -62,6 +63,12 @@ function Blog({ params }: Props) {
   return (
     <article className="max-w-3xl mx-auto">
       <div className="my-14">
+        <Image
+          src={blog.image ?? "/img/blank.png"}
+          alt="blog image"
+          width={768}
+          height={100}
+        />
         <h1 className={`text-2xl font-medium ${isTagsPresent ? "mb-4" : ""}`}>
           {blog.title}
         </h1>

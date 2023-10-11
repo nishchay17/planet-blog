@@ -13,7 +13,13 @@ export default function BlogCard({
 }: BlogProps) {
   return (
     <div className="group cursor-pointer">
-      <Image src={image} alt="blog image" height={270} width={480} />
+      <Image
+        src={image}
+        alt="blog image"
+        className="aspect-video"
+        height={270}
+        width={480}
+      />
       <p className="text-lg md:text-xl my-2 line-clamp-2 group-hover:underline">
         {title}
       </p>

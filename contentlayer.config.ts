@@ -22,9 +22,7 @@ const Blog = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
-    // image: {
-    //   type: "string",
-    // },
+    image: { type: "string" },
   },
   computedFields: {
     url_path: {
