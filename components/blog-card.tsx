@@ -9,14 +9,15 @@ type BlogProps = {
 export default function BlogCard({
   title,
   tags,
-  image = "/img/blank.png",
+  image = "/svg/blank.svg",
 }: BlogProps) {
   return (
     <div className="group cursor-pointer">
       <Image
         src={image}
         alt="blog image"
-        className="aspect-video"
+        quality={90}
+        className="aspect-video object-cover"
         height={270}
         width={480}
       />
