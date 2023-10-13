@@ -63,12 +63,9 @@ function Blog({ params }: Props) {
   return (
     <article className="max-w-3xl mx-auto">
       <div className="my-14">
-        <Image
-          src={blog.image ?? "/img/blank.png"}
-          alt="blog image"
-          width={768}
-          height={100}
-        />
+        <div className="object-cover relative w-full h-48 mb-5">
+          <Image src={blog.image ?? "/img/blank.png"} alt="blog image" fill />
+        </div>
         <h1 className={`text-2xl font-medium ${isTagsPresent ? "mb-4" : ""}`}>
           {blog.title}
         </h1>
