@@ -2,8 +2,10 @@ import Link from "next/link";
 
 import LandingNav from "@/components/nav";
 import { Button } from "@/components/ui/button";
+import { analytics } from "@/action/analytics";
 
 export default function NotFound() {
+  analytics("404 visited");
   return (
     <>
       <LandingNav />

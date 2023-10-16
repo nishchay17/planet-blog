@@ -477,6 +477,11 @@
     protobufjs "^7.2.4"
     yargs "^17.7.2"
 
+"@highstorm/client@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@highstorm/client/-/client-0.0.2.tgz#a3cb5b2cdbfd1a6a84f89c879d9da0ba9e8e2ed2"
+  integrity sha512-z/zO9z06qyuRPX4iJhr4SFtQVIJt/hHYJ1vu7SfHbFfTHksj/haL21in8AcRHdjRY89lfjSJWsgvCLXlFRGCvw==
+
 "@hookform/resolvers@^3.1.1":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.3.0.tgz#5e37c2926b827d2577c1bd2676a2a705984b334d"

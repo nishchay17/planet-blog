@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 import { Mdx } from "@/components/render-mdx";
 import { allBlogs, Blog } from "contentlayer/generated";
@@ -7,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { Links } from "@/config/links";
 import { siteConfig } from "@/config/site";
-import Image from "next/image";
+import { analytics } from "@/action/analytics";
 
 type Props = { params: { slug: string } };
 
@@ -59,6 +60,8 @@ function Blog({ params }: Props) {
   }
   const isTagsPresent: boolean =
     (blog.tags && Array.isArray(blog.tags)) ?? false;
+
+  analytics(`Blogs: ${blog.title}`, `${blog.title} blog page visited`);
 
   return (
     <article className="max-w-3xl mx-auto">

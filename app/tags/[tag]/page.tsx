@@ -4,7 +4,7 @@ import Link from "next/link";
 import { allBlogs, Blog } from "contentlayer/generated";
 import BlogCard from "@/components/blog-card";
 import { getAllTags } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
+import { analytics } from "@/action/analytics";
 
 type Props = { params: { tag: string } };
 
@@ -27,6 +27,7 @@ function Tag({ params }: Props) {
   if (!blogsWithTag) {
     notFound();
   }
+  analytics(`Tags: ${tagName}`, `${tagName} tag page visited`);
 
   return (
     <section className="my-10 sm:my-15">

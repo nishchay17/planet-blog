@@ -1,3 +1,4 @@
+import { analytics } from "@/action/analytics";
 import AllBlogs from "@/components/allBlogs";
 
 export async function generateMetadata() {
@@ -7,6 +8,7 @@ export async function generateMetadata() {
 }
 
 function Blogs() {
+  analytics("All Blogs", "All blog page visited");
   return <AllBlogs />;
 }
 
