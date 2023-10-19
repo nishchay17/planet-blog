@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { Links } from "@/config/links";
 import { siteConfig } from "@/config/site";
-import { analytics } from "@/action/analytics";
 
 type Props = { params: { slug: string } };
 
@@ -60,8 +59,6 @@ function Blog({ params }: Props) {
   }
   const isTagsPresent: boolean =
     (blog.tags && Array.isArray(blog.tags)) ?? false;
-
-  analytics(`Blogs: ${blog.title}`, `${blog.title} blog page visited`);
 
   return (
     <article className="max-w-3xl mx-auto">

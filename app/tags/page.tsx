@@ -1,4 +1,3 @@
-import { analytics } from "@/action/analytics";
 import AllTags from "@/components/allTags";
 
 export async function generateMetadata() {
@@ -8,7 +7,6 @@ export async function generateMetadata() {
 }
 
 function Blogs() {
-  analytics("All Blogs", "All blog page visited");
   return <AllTags />;
 }
 

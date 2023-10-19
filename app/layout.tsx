@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import Analytics from "./analytics";
 
 const poppins = Poppins({
   weight: ["800", "700", "600", "500", "400", "300"],
@@ -60,10 +61,12 @@ export default function RootLayout({
         className={cn("antialiased", poppins.className)}
         suppressHydrationWarning
       >
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          {children}
-          <TailwindIndicator />
-        </ThemeProvider>
+        <Analytics>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            {children}
+            <TailwindIndicator />
+          </ThemeProvider>
+        </Analytics>
       </body>
     </html>
   );
