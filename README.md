@@ -12,7 +12,7 @@
 
 ## About
 
-This is my Portfolio for showcasing all my personal projects, created with Next js, typescript, chakra UI, and framer motion with ESLint 
+Welcome to my SEO-friendly blogging website. This platform is designed to provide high-quality, server-side rendered content that's optimized for search engines. It offers an optimal balance of performance and search engine visibility.
 
 ## Features
 
