@@ -2,6 +2,7 @@
 
 [![Website](https://img.shields.io/website?label=Website&url=https://planet-blog.vercel.app/)](https://planet-blog.vercel.app/) [![GitHub License](https://img.shields.io/github/license/nishchay17/planet-blog)](https://github.com/nishchay17/planet-blog/blob/main/LICENSE)
 
+![image](https://github.com/nishchay17/planet-blog/assets/48904113/8d10c8cb-0c9f-4513-892a-ed2b72d4fe6b)
 
 ## Table of Contents
 
