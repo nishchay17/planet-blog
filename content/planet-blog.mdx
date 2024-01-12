@@ -9,6 +9,10 @@ tags:
 createdAt: 12/01/2024
 ---
 
+> To much to read? check out the code <a class="border-b border-spacing-0" href="https://github.com/nishchay17/planet-blog" target="_blank">here</a>
+
+<br />
+
 # Background
 
 I wanted to share different cool things I know, read, or watch on YouTube, and for that, I needed a place to share it, dev.to or medium.com came into my mind but I needed something more personal and this is an excuse for another personal project!
@@ -43,16 +47,37 @@ Again the default CSS framework for me, but with Shadcn UI this becomes even mor
 
 ## Content layer
 
-Now for this, I needed a solution that is not hosted somewhere else like a CDN, in a nutshell I needed something completely offline and with no additional request over the wire.
+Now for this, I needed a solution that is not hosted somewhere else like a CDN, in a nutshell I needed something completely offline and with no additional request over the wire. Additionally I used MDX ie mark down with JSX for extra flexibility
 
 ## Highstorm
 
 Simple, open-source, free, and have integration with Slack. (not very powerful but)
 
----
+<br />
 
 ## Project Structure
 
 The project stucture is a pretty common Next 14 project structure
 
-![project structure](blog/blog-project-structure.jpg)
+![project structure](/blog/blog-project-structure.jpg)
+
+<br />
+<br />
+
+# Publishing new content
+
+For this, I wanted the flow not to make me spin up my local environment for a preview, so I created 2 branches in git one for the main site and one for preview, so I could easily use GitHub to add new pages, and then commit that which will trigger deploy over the preview domain, from where I can easily preview my content and then promote that to the main branch for the prod deployment.
+
+I think this could be very useful for bigger projects too as you can make the
+main branch protected and have writers commit in the preview branch after which it
+can be promoted to the main branch. The other thing that I like about this is all
+the content is owned by me and I can migrate it easily to other formate or sites
+in the future just one less thing to worry about.
+
+### Flow
+
+Content -> Commit in Draft branch
+
+Commit in Draft branch -> Triggers build on preview site
+
+PR to main branch -> Triggers build on main site
