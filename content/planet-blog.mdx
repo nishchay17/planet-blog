@@ -6,7 +6,53 @@ tags:
   - Content layer
   - MDX
   - Design
-createdAt: 11/10/2023
+createdAt: 12/01/2024
 ---
 
-# hi
+# Background
+
+I wanted to share different cool things I know, read, or watch on YouTube, and for that, I needed a place to share it, dev.to or medium.com came into my mind but I needed something more personal and this is an excuse for another personal project!
+
+## Things I needed in the blog site
+
+> aka requirements
+
+- Solid SEO
+- Small bundle size
+- Server-side rendered (for the most part anyways)
+- Easy to add content
+- Analytics
+
+## The tech-stack
+
+I ended up using Next js (frontend framework), tailwind (CSS library), content layer (content manager), and Highstorm (Analytics) for various reasons so lets discuss them
+
+---
+
+# Design
+
+So let's go through all the things I picked and why
+
+## Next js
+
+First it's the default framework that I am using now, but most importantly it gives me SSR and that I really wanted, as I want the site to be quick and the content is static anyways (advantage of not using some CMS).
+
+## Tailwind
+
+Again the default CSS framework for me, but with Shadcn UI this becomes even more powerful, as I don't need to build basic components from the ground up.
+
+## Content layer
+
+Now for this, I needed a solution that is not hosted somewhere else like a CDN, in a nutshell I needed something completely offline and with no additional request over the wire.
+
+## Highstorm
+
+Simple, open-source, free, and have integration with Slack. (not very powerful but)
+
+---
+
+## Project Structure
+
+The project stucture is a pretty common Next 14 project structure
+
+![project structure](blog/blog-project-structure.jpg)
