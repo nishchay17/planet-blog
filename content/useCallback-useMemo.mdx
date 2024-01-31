@@ -1,0 +1,225 @@
+---
+title: Understanding useCallback vs. useMemo in React
+tags:
+  - React
+  - Javascript
+  - useCallback
+  - useMemo
+image: /svg/useCallback-useMemo.svg
+createdAt: 01/29/2024
+---
+
+# Understanding useCallback vs. useMemo in React
+
+React offers two important hooks, useCallback and useMemo, that play a crucial role in optimizing the performance of your components. While both hooks deal with memoization, they serve different purposes and are used in distinct scenarios.
+
+In this blog post, we will explore the differences between useCallback and useMemo and understand when to use each.
+
+## useMemo: Memorizing Values
+
+> useMemo is used to memoize the result of expensive computations. It prevents recalculating values on every render, returning the memoized result unless dependencies change.
+
+This is the simple one to use in both of these, as this is just a cache for result of a function call.
+This is as simple dymanic programming/caching.
+
+### Example:
+
+```jsx
+import { useMemo, useState } from "react";
+
+const MyComponent = () => {
+  const [value, setValue] = useState(10);
+
+  // Without useMemo, this calculation would be performed on every render
+  const squaredValue = useMemo(() => {
+    console.log("Calculating squared value");
+    return value * value;
+  }, [value]);
+
+  return (
+    <div>
+      <p>Original Value: {value}</p>
+      <p>Squared Value: {squaredValue}</p>
+      <button onClick={() => setValue(value + 1)}>Increment</button>
+    </div>
+  );
+};
+```
+
+In this example, squaredValue is memoized using useMemo. The calculation is
+only performed when value changes, preventing unnecessary recalculations.
+
+> In the real world, this example is not a great contender for using useMemo but we can look for functions that might take
+> too long to compute and just use useMemo to cache the result.
+
+## useCallback: Memorizing Functions
+
+> useCallback is a React hook designed to memoize functions, preventing unnecessary re-creation of functions during re-renders.
+
+In my personal experience, this hook is a bit tricky and might not be useful every time if you think you need to use
+useCallback take a step back and think can you refactor the code in such a way that you might not even need a useCallback.
+I will guide you through an example to drive my point across.
+
+If you look at [react documentation](https://react.dev/reference/react/useCallback#usage) there are four use cases for use call back.
+
+1. Skipping re-rendering of components
+2. Updating state from a memoized callback
+3. Preventing an Effect from firing too often
+4. Optimizing a custom Hook
+
+Which is mainly saying to use useCallback to make memo work properly.
+If updating the state based on the previous state use the updater function and not add the state in the dependency array of useCallback,
+how to prevent infinite render if some function is in the dependency array of a useEffect.
+Wrap any custom hook into useCallback.
+
+I highly recommend reading the [react documentation](https://react.dev/reference/react/useCallback#usage) for things to do,
+but let's cover things that **we should not do while using useCallback**.
+
+## Preventing re-rendering
+
+Here I have used _memo_ and _useCallback_ for preventing re-render then we increase the counter.
+This is a ok way of doing this, but we can also do this without the use of these 2 hooks.
+
+```jsx
+import { memo, useCallback, useState } from "react";
+
+function Page() {
+  const [items, setItems] = useState([
+    { id: 1, name: "Item 1" },
+    { id: 2, name: "Item 2" },
+    { id: 3, name: "Item 3" },
+  ]);
+  const [counter, setCounter] = useState(0);
+  const handleClick = useCallback((itemId) => {
+    console.log(`Item ${itemId} clicked`);
+  }, []);
+
+  return (
+    <div>
+      <h1>List of Items</h1>
+      <button onClick={() => setCounter((c) => c + 1)}>{counter}</button>
+      {items.map((item) => (
+        <ChildComponentMemo key={item.id} item={item} onClick={handleClick} />
+      ))}
+    </div>
+  );
+}
+
+function ChildComponent({ item, onClick }) {
+  return (
+    <div>
+      <h2>{item.name}</h2>
+      <button onClick={() => onClick(item.id)}>Click me</button>
+    </div>
+  );
+}
+const ChildComponentMemo = memo(ChildComponent);
+export default Page;
+```
+
+Now let's see how and why we can remove _memo_ and _useCallback_ and still not have the _ChildComponent_ render
+when _counter_ changes.
+
+```jsx
+"use client";
+
+import { useState } from "react";
+
+function Page() {
+  const [items, setItems] = useState([
+    { id: 1, name: "Item 1" },
+    { id: 2, name: "Item 2" },
+    { id: 3, name: "Item 3" },
+  ]);
+
+  const handleClick = (itemId: any) => {
+    console.log(`Item ${itemId} clicked`);
+  };
+
+  return (
+    <div>
+      <h1>List of Items</h1>
+      <CounterComponent />
+      {items.map((item) => (
+        <ChildComponent key={item.id} item={item} onClick={handleClick} />
+      ))}
+    </div>
+  );
+}
+
+function CounterComponent() {
+  const [counter, setCounter] = useState(0);
+  return <button onClick={() => setCounter((c) => c + 1)}>{counter}</button>;
+}
+
+function ChildComponent({ item, onClick }: { item: any; onClick: any }) {
+  return (
+    <div>
+      <h2>{item.name}</h2>
+      <button onClick={() => onClick(item.id)}>Click me</button>
+    </div>
+  );
+}
+
+export default Page;
+```
+
+Here I have separated the counter state into its own component, making the count state component and the ChildComponent sibling component,
+previously when the counter state was changing it was causing rendering of the child component,
+but now these two are sibling component and therefore the re-rendering will not be triggered while changing counter state.
+
+## Event firing to many times
+
+Here in this, when we are using some function inside of _useEffect_ we also pass that into the
+dependency array, but as the re-render recreates the function the useEffect is called again which might be setting some state which causes re-rendering again, making it an infinite cycle.
+For fixing that we normally use _useCallback_ like this
+
+```jsx
+import { useState, useEffect, useCallback } from "react";
+
+function Page() {
+  const [flag, setFlag] = useState(false);
+
+  const fetchFlag = useCallback(() => {
+    return fetch("/api/flag").then((res) => res.json());
+  }, []);
+
+  useEffect(() => {
+    fetchFlag().then((data) => setFlag(data.flag));
+  }, [fetchFlag]);
+
+  return <p>Foo bar {flag}</p>;
+}
+
+export default Page;
+```
+
+But if there is no use of the function (_fetchFlag_ in this example) then we can
+easily remove use of _useCallback_ by moving the function inside of _useEffect_
+
+```jsx
+import { useState, useEffect } from "react";
+
+function Page() {
+  const [flag, setFlag] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setFlag((await fetch("/api/flag").then((res) => res.json())).flag);
+    })();
+  }, []);
+
+  return <p>Foo bar {flag}</p>;
+}
+
+export default Page;
+```
+
+> the reason why I am not making the _useEffect_ callback as _async_ and then fetching
+> is because it is a bad practice to mark the _useEffect_ callback as _async_
+
+In conclusion, useCallback and useMemo are powerful tools in React that can significantly enhance the performance of your components.
+By memoizing functions and values strategically, you can avoid unnecessary re-renders and optimize the computational efficiency of your application.
+Remember, while these hooks are valuable, it's essential to use them judiciously and with a clear understanding of their impact on your codebase.
+
+Thanks for exploring these React hooks with me, and happy coding!
